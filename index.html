@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>杰泽电池电子质保卡</title>
+    <title>电池电子质保卡 - 优化版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,26 +14,26 @@
         }
 
         body {
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 0;
+            padding: 12px;
             color: #333;
-            font-size: 15px;
         }
 
         .container {
-            width: 100%;
-            max-width: 480px;
+            max-width: 100%;
             margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             background-color: white;
-            min-height: 100vh;
         }
 
-        /* 头部标题区域 - 参考图片中的蓝绿渐变 */
+        /* 头部区域 */
         .header {
-            background: linear-gradient(135deg, #1a5fff 0%, #36cfc9 100%);
+            background: linear-gradient(135deg, #1a5fff 0%, #1890ff 100%);
             color: white;
-            padding: 20px 16px;
+            padding: 22px 16px;
             text-align: center;
         }
 
@@ -45,8 +45,8 @@
         }
 
         .logo {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             background-color: white;
             border-radius: 50%;
             display: flex;
@@ -72,18 +72,92 @@
         }
 
         .header p {
-            opacity: 0.95;
+            opacity: 0.9;
             font-size: 13px;
         }
 
-        /* 状态横幅 - 红色背景 */
-        .status-banner {
-            background: linear-gradient(to right, #ff4d4f, #ff7875);
+        /* 微信访问提示 */
+        .weixin-tip {
+            display: none;
+            background: linear-gradient(135deg, #ff4d4f, #ff7875);
             color: white;
-            padding: 12px 16px;
+            padding: 15px 16px;
+            text-align: center;
+            position: relative;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .weixin-tip-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .weixin-tip-text {
+            flex: 1;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .weixin-tip-text i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .weixin-tip-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .weixin-tip-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .weixin-tip-btn {
+            padding: 8px 15px;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .weixin-tip-btn.primary {
+            background-color: #1a5fff;
+            color: white;
+        }
+
+        .weixin-tip-btn.secondary {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* 状态横幅 */
+        .status-banner {
+            padding: 10px 16px;
             text-align: center;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -94,7 +168,63 @@
             font-size: 16px;
         }
 
-        /* 产品信息卡片 - 与图片一致 */
+        .status-inactive {
+            background: linear-gradient(to right, #fa8c16, #ffa940);
+            color: white;
+        }
+
+        .status-active {
+            background: linear-gradient(to right, #52c41a, #73d13d);
+            color: white;
+        }
+
+        .status-expired {
+            background: linear-gradient(to right, #ff4d4f, #ff7875);
+            color: white;
+        }
+
+        /* 激活提示区域 */
+        .activation-notice {
+            padding: 12px 16px;
+            background: linear-gradient(to right, #ffa940, #fa8c16);
+            color: white;
+            text-align: center;
+            display: none;
+        }
+
+        .activation-notice i {
+            margin-right: 8px;
+        }
+
+        .activation-notice .notice-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .notice-text {
+            flex: 1;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .activate-btn {
+            padding: 8px 16px;
+            background-color: white;
+            color: #fa8c16;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .activate-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 产品信息卡片 */
         .info-card {
             padding: 20px 16px;
             border-bottom: 1px solid #f0f0f0;
@@ -103,7 +233,7 @@
         .card-title {
             display: flex;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             font-size: 16px;
             font-weight: bold;
             color: #1a5fff;
@@ -117,7 +247,7 @@
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 14px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #f8f8f8;
         }
 
@@ -127,22 +257,23 @@
 
         .info-label {
             color: #666;
-            font-size: 15px;
+            font-size: 14px;
+            flex: 1;
         }
 
         .info-value {
             font-weight: 500;
-            font-size: 15px;
+            font-size: 14px;
             text-align: right;
+            flex: 1.2;
             max-width: 65%;
-            color: #333;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 5px 12px;
-            border-radius: 16px;
-            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: bold;
         }
 
@@ -152,15 +283,31 @@
             border: 1px solid #b7eb8f;
         }
 
-        /* 功能按钮区域 - 恢复合适大小 */
+        .status-expired-badge {
+            background-color: #fff2f0;
+            color: #ff4d4f;
+            border: 1px solid #ffccc7;
+        }
+
+        .status-inactive-badge {
+            background-color: #fff7e6;
+            color: #fa8c16;
+            border: 1px solid #ffd591;
+        }
+
+        /* 功能按钮区域 */
         .horizontal-buttons {
-            padding: 16px;
+            padding: 12px 10px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+            overflow-x: auto;
+            gap: 10px;
             border-bottom: 1px solid #f0f0f0;
             background-color: #fafafa;
-            justify-content: space-between;
+            scrollbar-width: none;
+        }
+
+        .horizontal-buttons::-webkit-scrollbar {
+            display: none;
         }
 
         .horizontal-btn {
@@ -168,14 +315,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: calc(33.333% - 8px);
-            height: 90px;
+            min-width: 90px;
+            max-width: 90px;
+            height: 88px;
             padding: 12px 8px;
             background-color: white;
             border: 1px solid #e8e8e8;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
@@ -189,6 +338,16 @@
             border-color: #1a5fff;
             color: white;
             box-shadow: 0 4px 12px rgba(26, 95, 255, 0.2);
+        }
+
+        .horizontal-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .horizontal-btn.disabled:hover {
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .horizontal-btn.active .btn-icon-horizontal {
@@ -206,14 +365,14 @@
         }
 
         .btn-icon-horizontal {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
-            font-size: 20px;
+            margin-bottom: 8px;
+            font-size: 18px;
             color: white;
             background-color: #1a5fff;
             border: 1px solid rgba(26, 95, 255, 0.1);
@@ -221,15 +380,15 @@
 
         .btn-text-horizontal {
             font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 4px;
+            font-size: 14px;
+            margin-bottom: 2px;
             color: #333;
             text-align: center;
             line-height: 1.2;
         }
 
         .btn-desc-horizontal {
-            font-size: 12px;
+            font-size: 11px;
             color: #888;
             text-align: center;
             line-height: 1.2;
@@ -237,14 +396,14 @@
 
         /* 内容显示区域 */
         .content-area {
-            padding: 20px 16px;
+            padding: 18px 16px;
             min-height: 320px;
             transition: all 0.3s ease;
         }
 
         .content-panel {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .content-panel.active {
@@ -273,128 +432,350 @@
             font-size: 15px;
         }
 
-        /* 下载凭证区域 - 与图片一致 */
-        .download-section {
-            margin-top: 24px;
+        .content-list {
+            list-style-type: none;
+            padding: 0;
         }
 
-        .download-options {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .download-item {
+        .content-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
             display: flex;
             align-items: center;
-            padding: 18px;
-            background-color: #f8f9fa;
-            border-radius: 12px;
-            border-left: 4px solid #1a5fff;
+            font-size: 14px;
         }
 
-        .download-item.pdf {
-            border-left-color: #1a5fff;
+        .content-list li:last-child {
+            border-bottom: none;
         }
 
-        .download-item.image {
-            border-left-color: #52c41a;
+        .content-list i {
+            color: #1a5fff;
+            margin-right: 10px;
+            font-size: 15px;
+            min-width: 20px;
         }
 
-        .download-icon {
+        /* 卡片样式 */
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .feature-card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-card-title i {
+            color: #1a5fff;
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        /* 产品网格 */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .product-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-icon {
             width: 50px;
             height: 50px;
-            border-radius: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a5fff, #1890ff);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 16px;
-            font-size: 24px;
-            color: white;
+            margin: 0 auto 8px;
+            font-size: 22px;
         }
 
-        .download-icon.pdf {
-            background: linear-gradient(135deg, #1a5fff, #1890ff);
-        }
-
-        .download-icon.image {
-            background: linear-gradient(135deg, #52c41a, #73d13d);
-        }
-
-        .download-info {
-            flex: 1;
-        }
-
-        .download-title {
+        .product-name {
             font-weight: bold;
-            font-size: 16px;
-            color: #333;
+            font-size: 14px;
             margin-bottom: 4px;
         }
 
-        .download-desc {
-            font-size: 13px;
+        .product-desc {
+            font-size: 12px;
             color: #666;
         }
 
-        .download-btn {
-            padding: 10px 20px;
-            background-color: #1a5fff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s ease;
+        /* 激活表单弹窗样式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
 
-        .download-btn:hover {
-            background-color: #1890ff;
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .activation-modal {
+            background-color: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+            color: #1a5fff;
+            margin-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-label .required {
+            color: #ff4d4f;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #1a5fff;
+            outline: none;
+        }
+
+        .form-input.error {
+            border-color: #ff4d4f;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            background-color: white;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .form-checkbox input {
+            margin-top: 3px;
+            margin-right: 10px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn-cancel, .btn-submit {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel {
+            background-color: #f5f5f5;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e8e8e8;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #1a5fff 0%, #1890ff 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #1890ff 0%, #1a5fff 100%);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* 激活成功提示样式 */
+        .success-modal {
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: #52c41a;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            color: #52c41a;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .success-info {
+            background-color: #f6ffed;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border: 1px solid #b7eb8f;
         }
 
         /* 底部 */
         .footer {
             text-align: center;
-            padding: 20px 16px;
+            padding: 16px;
             color: #999;
             font-size: 12px;
             border-top: 1px solid #f0f0f0;
             background-color: #fafafa;
         }
 
-        /* 响应式调整 */
-        @media (max-width: 480px) {
-            .container {
-                max-width: 100%;
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
-            
-            .horizontal-btn {
-                width: calc(33.333% - 8px);
-                height: 88px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
+        /* 响应式调整 */
         @media (max-width: 375px) {
             .horizontal-btn {
-                width: calc(33.333% - 6px);
-                height: 86px;
+                min-width: 85px;
+                max-width: 85px;
+                height: 85px;
+                padding: 10px 6px;
             }
             
-            .header {
-                padding: 18px 14px;
+            .btn-icon-horizontal {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
             }
             
-            .info-card {
-                padding: 18px 14px;
+            .btn-text-horizontal {
+                font-size: 13px;
+            }
+            
+            .btn-desc-horizontal {
+                font-size: 10px;
+            }
+            
+            .content-area {
+                min-height: 300px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 微信访问提示 -->
+    <div class="weixin-tip" id="weixinTip">
+        <div class="weixin-tip-content">
+            <div class="weixin-tip-text">
+                <i class="fas fa-exclamation-circle"></i>
+                检测到您在微信内访问，部分功能可能受限。建议在浏览器中打开以获得最佳体验。
+            </div>
+            <button class="weixin-tip-close" onclick="closeWeixinTip()">&times;</button>
+        </div>
+        <div class="weixin-tip-actions">
+            <button class="weixin-tip-btn primary" onclick="copyToBrowser()">
+                <i class="fas fa-external-link-alt"></i> 复制链接到浏览器
+            </button>
+            <button class="weixin-tip-btn secondary" onclick="showWeixinGuide()">
+                <i class="fas fa-question-circle"></i> 查看操作指引
+            </button>
+        </div>
+    </div>
+
     <div class="container">
-        <!-- 头部标题区域 -->
+        <!-- 头部区域 -->
         <div class="header">
             <div class="logo-area">
                 <div class="logo">
@@ -407,9 +788,20 @@
         </div>
 
         <!-- 状态横幅 -->
-        <div class="status-banner">
-            <i class="fas fa-shield-alt"></i>
-            <span id="status-text">正品保障，全国联保</span>
+        <div class="status-banner status-inactive" id="statusBanner">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="statusText">产品质保未激活</span>
+        </div>
+
+        <!-- 激活提示区域 -->
+        <div class="activation-notice" id="activationNotice">
+            <div class="notice-content">
+                <div class="notice-text">
+                    <i class="fas fa-exclamation-circle"></i>
+                    该产品质保尚未激活，激活后可享受24个月全国联保
+                </div>
+                <button class="activate-btn" onclick="showActivationForm()">立即激活</button>
+            </div>
         </div>
 
         <!-- 产品信息卡片 -->
@@ -432,13 +824,23 @@
             <div class="info-row">
                 <span class="info-label">质保状态：</span>
                 <span class="info-value">
-                    <span class="status-badge status-valid" id="warranty-status">在保</span>
+                    <span class="status-badge status-inactive-badge" id="warranty-status">未激活</span>
                 </span>
             </div>
             
             <div class="info-row">
                 <span class="info-label">质保期限：</span>
-                <span class="info-value" id="warranty-period">24个月</span>
+                <span class="info-value" id="warranty-period">24个月（激活后生效）</span>
+            </div>
+            
+            <div class="info-row" id="activateDateRow" style="display: none;">
+                <span class="info-label">生效日期：</span>
+                <span class="info-value" id="activate-date">-</span>
+            </div>
+            
+            <div class="info-row" id="expireDateRow" style="display: none;">
+                <span class="info-label">到期日期：</span>
+                <span class="info-value" id="expire-date">-</span>
             </div>
         </div>
 
@@ -502,79 +904,132 @@
                     电子质保卡
                 </div>
                 <div class="content-body">
-                    <p>感谢您购买超威电池产品！本电子质保卡是您享受售后服务的凭证，请妥善保管。</p>
+                    <div id="warranty-inactive" style="display: block;">
+                        <div class="feature-card" style="background: linear-gradient(135deg, #fff7e6, #fff1b8); border: 1px solid #ffd591;">
+                            <div style="text-align: center; padding: 20px 0;">
+                                <div style="font-size: 48px; color: #fa8c16; margin-bottom: 15px;">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <h3 style="color: #d48806; margin-bottom: 10px; font-size: 18px;">质保卡未激活</h3>
+                                <p style="color: #666; margin-bottom: 20px; line-height: 1.5;">
+                                    检测到该产品尚未激活电子质保服务。<br>
+                                    激活后即可享受24个月全国联保，请立即激活。
+                                </p>
+                                <button onclick="showActivationForm()" style="padding: 14px 30px; background: linear-gradient(135deg, #fa8c16 0%, #ffa940 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                                    <i class="fas fa-bolt"></i> 立即激活质保卡
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-card-title">
+                                <i class="fas fa-gift"></i>
+                                激活后您将获得
+                            </div>
+                            <ul class="content-list">
+                                <li><i class="fas fa-check-circle" style="color: #52c41a;"></i> 24个月全国联保服务</li>
+                                <li><i class="fas fa-check-circle" style="color: #52c41a;"></i> 电子质保凭证下载功能</li>
+                                <li><i class="fas fa-check-circle" style="color: #52c41a;"></i> 在线客服技术支持</li>
+                                <li><i class="fas fa-check-circle" style="color: #52c41a;"></i> 产品真伪验证服务</li>
+                            </ul>
+                        </div>
+                    </div>
                     
-                    <div class="info-card" style="margin-top: 16px; padding: 16px; border: 1px solid #e8e8e8; border-radius: 12px;">
-                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
-                            <span class="info-label">产品序列号：</span>
-                            <span class="info-value">105600000001</span>
+                    <div id="warranty-active" style="display: none;">
+                        <div class="feature-card" style="background: linear-gradient(135deg, #f6ffed, #d9f7be); border: 1px solid #b7eb8f;">
+                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #52c41a; color: white; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 24px;">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size: 18px; font-weight: bold; color: #389e0d; margin-bottom: 5px;">质保凭证</div>
+                                    <div style="color: #666; font-size: 14px;">您的产品质保已激活，正在享受全国联保服务</div>
+                                </div>
+                            </div>
+                            
+                            <div style="background-color: white; border-radius: 10px; padding: 20px;">
+                                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <span style="color: #666;">产品序列号：</span>
+                                    <span style="font-weight: 500;" id="active-product-id">105600000001</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <span style="color: #666;">质保期限：</span>
+                                    <span style="font-weight: 500;" id="active-warranty-period">24个月</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <span style="color: #666;">生效日期：</span>
+                                    <span style="font-weight: 500;" id="active-activate-date">2024-01-15</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 12px 0;">
+                                    <span style="color: #666;">到期日期：</span>
+                                    <span style="font-weight: 500;" id="active-expire-date">2026-01-14</span>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
-                            <span class="info-label">产品型号：</span>
-                            <span class="info-value">超威电池72V20Ah石墨烯</span>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-card-title">
+                            <i class="fas fa-file-alt"></i>
+                            质保条款
                         </div>
-                        
-                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
-                            <span class="info-label">质保状态：</span>
-                            <span class="info-value">
-                                <span class="status-badge status-valid">在保</span>
-                            </span>
-                        </div>
-                        
-                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
-                            <span class="info-label">质保期限：</span>
-                            <span class="info-value">24个月</span>
-                        </div>
+                        <ul class="content-list">
+                            <li><i class="fas fa-check-circle" style="color: #1a5fff;"></i> 本产品自激活之日起享24个月质保期</li>
+                            <li><i class="fas fa-check-circle" style="color: #1a5fff;"></i> 质保期内出现非人为损坏的性能故障，可免费维修或更换</li>
+                            <li><i class="fas fa-check-circle" style="color: #1a5fff;"></i> 请妥善保管本电子质保卡，作为售后服务凭证</li>
+                            <li><i class="fas fa-check-circle" style="color: #1a5fff;"></i> 全国联保服务热线：400-800-9000</li>
+                        </ul>
                     </div>
                 </div>
             </div>
             
-            <!-- 下载内容 - 与图片完全一致 -->
+            <!-- 下载内容 -->
             <div class="content-panel" id="download-content">
                 <div class="content-title">
                     <i class="fas fa-download"></i>
                     下载电子凭证
                 </div>
                 <div class="content-body">
-                    <p>您可以通过以下方式下载电子质保凭证：</p>
-                    
-                    <div class="download-options">
-                        <!-- PDF格式下载 -->
-                        <div class="download-item pdf">
-                            <div class="download-icon pdf">
-                                <i class="fas fa-file-pdf"></i>
+                    <div id="download-inactive" style="display: block;">
+                        <div class="feature-card" style="text-align: center; padding: 30px 20px;">
+                            <div style="font-size: 48px; color: #ccc; margin-bottom: 20px;">
+                                <i class="fas fa-lock"></i>
                             </div>
-                            <div class="download-info">
-                                <div class="download-title">PDF格式电子质保卡</div>
-                                <div class="download-desc">适合打印保存，包含完整产品信息和质保条款</div>
-                            </div>
-                            <button class="download-btn" onclick="downloadPDF()">下载</button>
-                        </div>
-                        
-                        <!-- 图片格式下载 -->
-                        <div class="download-item image">
-                            <div class="download-icon image">
-                                <i class="fas fa-image"></i>
-                            </div>
-                            <div class="download-info">
-                                <div class="download-title">图片格式电子凭证</div>
-                                <div class="download-desc">适合手机保存，方便随时查看</div>
-                            </div>
-                            <button class="download-btn" onclick="downloadImage()">下载</button>
+                            <h3 style="margin-bottom: 10px; color: #999;">功能暂不可用</h3>
+                            <p style="margin-bottom: 20px; color: #999;">请先激活产品质保卡以使用下载功能</p>
+                            <button onclick="showActivationForm()" style="padding: 12px 25px; background: linear-gradient(135deg, #fa8c16 0%, #ffa940 100%); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                                立即激活质保卡
+                            </button>
                         </div>
                     </div>
                     
-                    <!-- 下载说明 -->
-                    <div class="download-section">
-                        <div class="content-title" style="font-size: 16px; margin-bottom: 12px;">
-                            <i class="fas fa-info-circle"></i>
-                            下载说明
-                        </div>
-                        <div class="content-body">
-                            <p>• 下载的文件包含数字签名，确保真实性</p>
-                            <p>• 建议将电子凭证保存在云端或打印备份</p>
-                            <p>• 如需帮助，请联系客服 400-800-9000</p>
+                    <div id="download-active" style="display: none;">
+                        <div class="feature-card">
+                            <div class="feature-card-title">
+                                <i class="fas fa-file-download"></i>
+                                电子质保凭证下载
+                            </div>
+                            <p style="margin-bottom: 16px;">您可以通过以下方式下载电子质保凭证：</p>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <div style="display: flex; align-items: center; padding: 16px; background-color: #f8f9fa; border-radius: 10px; border-left: 4px solid #1a5fff; margin-bottom: 12px;">
+                                    <i class="fas fa-file-pdf" style="font-size: 24px; color: #1a5fff; margin-right: 12px;"></i>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: bold; color: #333; font-size: 15px; margin-bottom: 4px;">PDF格式电子质保卡</div>
+                                        <div style="font-size: 13px; color: #666;">适合打印保存，包含完整产品信息</div>
+                                    </div>
+                                    <button onclick="downloadPDF()" style="padding: 8px 16px; background-color: #1a5fff; color: white; border: none; border-radius: 6px; font-size: 13px; cursor: pointer;">下载</button>
+                                </div>
+                                
+                                <div style="display: flex; align-items: center; padding: 16px; background-color: #f8f9fa; border-radius: 10px; border-left: 4px solid #52c41a;">
+                                    <i class="fas fa-image" style="font-size: 24px; color: #52c41a; margin-right: 12px;"></i>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: bold; color: #333; font-size: 15px; margin-bottom: 4px;">图片格式电子凭证</div>
+                                        <div style="font-size: 13px; color: #666;">适合手机保存，方便随时查看</div>
+                                    </div>
+                                    <button onclick="downloadImage()" style="padding: 8px 16px; background-color: #52c41a; color: white; border: none; border-radius: 6px; font-size: 13px; cursor: pointer;">下载</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -587,23 +1042,42 @@
                     公司简介
                 </div>
                 <div class="content-body">
-                    <p>超威电池有限公司成立于1998年，是中国领先的电池制造商之一。我们专注于研发和生产高品质的铅酸电池、锂电池和储能系统，产品广泛应用于电动汽车、电动自行车、太阳能储能等领域。</p>
+                    <div class="feature-card">
+                        <div style="display: flex; align-items: center; margin-bottom: 18px;">
+                            <div style="width: 60px; height: 60px; border-radius: 10px; background: linear-gradient(135deg, #1a5fff, #1890ff); color: white; display: flex; align-items: center; justify-content: center; margin-right: 14px; font-size: 28px;">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <div style="font-size: 18px; font-weight: bold; color: #333; margin-bottom: 4px;">超威电池有限公司</div>
+                                <div style="font-size: 13px; color: #666; margin-bottom: 8px;">更安全、更持久、更强劲的动力之源</div>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-bottom: 18px; font-size: 14px; line-height: 1.6;">超威电池成立于1998年，是中国领先的电池制造商之一。我们专注于研发和生产高品质的铅酸电池、锂电池和储能系统，产品广泛应用于电动汽车、电动自行车、太阳能储能等领域。公司秉承"科技创新、质量第一"的理念，致力于为全球用户提供更安全、更持久、更强劲的动力解决方案。</p>
+                    </div>
                     
-                    <h3 style="margin: 18px 0 12px; color: #333; font-size: 16px;">我们的优势</h3>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
-                            <i class="fas fa-award" style="color: #1a5fff; margin-right: 10px;"></i>
-                            <span>超过20年行业经验，技术领先</span>
-                        </li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
-                            <i class="fas fa-industry" style="color: #1a5fff; margin-right: 10px;"></i>
-                            <span>年产能超过1亿只电池</span>
-                        </li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
-                            <i class="fas fa-globe" style="color: #1a5fff; margin-right: 10px;"></i>
-                            <span>产品出口全球50多个国家和地区</span>
-                        </li>
-                    </ul>
+                    <div class="feature-card">
+                        <div class="feature-card-title">
+                            <i class="fas fa-award"></i>
+                            我们的优势
+                        </div>
+                        <ul class="content-list">
+                            <li><i class="fas fa-chart-line" style="color: #1a5fff;"></i> 超过20年行业经验，技术领先</li>
+                            <li><i class="fas fa-industry" style="color: #1a5fff;"></i> 年产能超过1亿只电池</li>
+                            <li><i class="fas fa-globe" style="color: #1a5fff;"></i> 产品出口全球50多个国家和地区</li>
+                            <li><i class="fas fa-users" style="color: #1a5fff;"></i> 全国5000+服务网点，售后无忧</li>
+                            <li><i class="fas fa-flask" style="color: #1a5fff;"></i> 拥有国家级研发中心和实验室</li>
+                            <li><i class="fas fa-medal" style="color: #1a5fff;"></i> 荣获多项国家专利和行业认证</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-card-title">
+                            <i class="fas fa-bullseye"></i>
+                            企业愿景
+                        </div>
+                        <p style="font-size: 14px; line-height: 1.6;">成为全球领先的绿色能源解决方案提供商，通过技术创新推动能源革命，为构建可持续发展的未来贡献力量。</p>
+                    </div>
                 </div>
             </div>
             
@@ -614,24 +1088,72 @@
                     产品展示
                 </div>
                 <div class="content-body">
-                    <p>超威电池提供全系列电池产品，满足不同应用场景需求：</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px;">
-                        <div style="border: 1px solid #e8e8e8; border-radius: 10px; padding: 14px; text-align: center;">
-                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1a5fff, #1890ff); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <div style="font-weight: bold; margin-bottom: 4px;">电动汽车电池</div>
-                            <div style="font-size: 12px; color: #666;">高能量密度，长续航</div>
-                        </div>
+                    <div class="feature-card">
+                        <p style="margin-bottom: 16px;">超威电池提供全系列电池产品，满足不同应用场景需求：</p>
                         
-                        <div style="border: 1px solid #e8e8e8; border-radius: 10px; padding: 14px; text-align: center;">
-                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1a5fff, #1890ff); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
-                                <i class="fas fa-bicycle"></i>
+                        <div class="product-grid">
+                            <div class="product-item">
+                                <div class="product-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="product-name">电动汽车电池</div>
+                                <div class="product-desc">高能量密度，长续航</div>
                             </div>
-                            <div style="font-weight: bold; margin-bottom: 4px;">电动自行车电池</div>
-                            <div style="font-size: 12px; color: #666;">轻量化设计，动力强劲</div>
+                            
+                            <div class="product-item">
+                                <div class="product-icon">
+                                    <i class="fas fa-bicycle"></i>
+                                </div>
+                                <div class="product-name">电动自行车电池</div>
+                                <div class="product-desc">轻量化设计，动力强劲</div>
+                            </div>
+                            
+                            <div class="product-item">
+                                <div class="product-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div class="product-name">太阳能储能</div>
+                                <div class="product-desc">高效储能，绿色环保</div>
+                            </div>
+                            
+                            <div class="product-item">
+                                <div class="product-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="product-name">家庭备用电源</div>
+                                <div class="product-desc">安全可靠，长久耐用</div>
+                            </div>
+                            
+                            <div class="product-item">
+                                <div class="product-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div class="product-name">商用车电池</div>
+                                <div class="product-desc">大容量，高功率</div>
+                            </div>
+                            
+                            <div class="product-item">
+                                <div class="product-icon">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="product-name">工业储能</div>
+                                <div class="product-desc">稳定可靠，寿命长</div>
+                            </div>
                         </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-card-title">
+                            <i class="fas fa-star"></i>
+                            产品特点
+                        </div>
+                        <ul class="content-list">
+                            <li><i class="fas fa-shield-alt" style="color: #52c41a;"></i> 高安全性：多重安全保护，防过充、防短路</li>
+                            <li><i class="fas fa-clock" style="color: #52c41a;"></i> 长寿命：循环寿命长，使用寿命达5年以上</li>
+                            <li><i class="fas fa-bolt" style="color: #52c41a;"></i> 快充电：支持快速充电，节省充电时间</li>
+                            <li><i class="fas fa-thermometer-half" style="color: #52c41a;"></i> 宽温域：适应-20℃~60℃工作环境</li>
+                            <li><i class="fas fa-leaf" style="color: #52c41a;"></i> 环保材料：符合RoHS标准，可回收利用</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -643,13 +1165,38 @@
                     联系客服
                 </div>
                 <div class="content-body">
-                    <div style="text-align: center; padding: 20px 0;">
-                        <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #f5222d, #ff4d4f); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 32px;">
+                    <div class="feature-card" style="text-align: center; padding: 20px 0;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #f5222d, #ff4d4f); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 36px;">
                             <i class="fas fa-phone-alt"></i>
                         </div>
-                        <h3 style="color: #333; margin-bottom: 8px;">客服热线</h3>
-                        <div style="font-size: 24px; font-weight: bold; color: #f5222d; margin: 16px 0;">400-800-9000</div>
-                        <div style="color: #666; font-size: 14px;">服务时间：周一至周日 8:00-20:00</div>
+                        <h3 style="color: #333; margin-bottom: 10px; font-size: 18px;">客服热线</h3>
+                        <div style="font-size: 28px; font-weight: bold; color: #f5222d; margin: 20px 0;">400-800-9000</div>
+                        <div style="color: #666; font-size: 14px; margin-bottom: 30px;">服务时间：周一至周日 8:00-20:00</div>
+                        
+                        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
+                            <button onclick="callCustomerService()" style="padding: 12px 20px; background-color: #1a5fff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                <i class="fas fa-phone"></i>
+                                立即拨打
+                            </button>
+                            
+                            <button onclick="onlineConsultation()" style="padding: 12px 20px; background-color: #52c41a; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                <i class="fas fa-comments"></i>
+                                在线咨询
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-card-title">
+                            <i class="fas fa-envelope"></i>
+                            其他联系方式
+                        </div>
+                        <ul class="content-list">
+                            <li><i class="fas fa-envelope" style="color: #1a5fff;"></i> 电子邮件：service@chaowei.com</li>
+                            <li><i class="fab fa-weixin" style="color: #1a5fff;"></i> 微信公众号：超威电池服务</li>
+                            <li><i class="fas fa-map-marker-alt" style="color: #1a5fff;"></i> 公司地址：浙江省长兴县超威电池工业园</li>
+                            <li><i class="fas fa-globe" style="color: #1a5fff;"></i> 官方网站：www.chaowei.com</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -661,19 +1208,27 @@
                     服务网点
                 </div>
                 <div class="content-body">
-                    <p>超威电池在全国拥有5000+服务网点，为您提供便捷的售后服务：</p>
+                    <div class="feature-card">
+                        <p style="margin-bottom: 16px;">超威电池在全国拥有5000+服务网点，为您提供便捷的售后服务：</p>
+                        
+                        <div style="height: 160px; background-color: #f5f5f5; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #999; margin-bottom: 20px;">
+                            <div style="text-align: center;">
+                                <i class="fas fa-map" style="font-size: 48px; color: #ccc; margin-bottom: 12px;"></i>
+                                <p style="color: #999; font-size: 14px;">服务网点地图</p>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div style="margin-top: 16px;">
-                        <div style="font-weight: bold; color: #333; margin-bottom: 10px;">主要城市服务网点</div>
-                        <ul style="list-style-type: none; padding: 0;">
-                            <li style="padding: 10px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
-                                <i class="fas fa-map-marker-alt" style="color: #1a5fff; margin-right: 10px;"></i>
-                                <span><strong>北京</strong> - 朝阳区超威电池服务中心</span>
-                            </li>
-                            <li style="padding: 10px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
-                                <i class="fas fa-map-marker-alt" style="color: #1a5fff; margin-right: 10px;"></i>
-                                <span><strong>上海</strong> - 浦东新区超威电池旗舰店</span>
-                            </li>
+                    <div class="feature-card">
+                        <div class="feature-card-title">
+                            <i class="fas fa-store"></i>
+                            主要城市服务网点
+                        </div>
+                        <ul class="content-list">
+                            <li><i class="fas fa-map-marker-alt" style="color: #ff4d4f;"></i> <strong>北京服务中心</strong> - 朝阳区超威电池服务中心，电话：010-12345678</li>
+                            <li><i class="fas fa-map-marker-alt" style="color: #ff4d4f;"></i> <strong>上海旗舰店</strong> - 浦东新区超威电池旗舰店，电话：021-87654321</li>
+                            <li><i class="fas fa-map-marker-alt" style="color: #ff4d4f;"></i> <strong>广州维修中心</strong> - 天河区超威电池维修中心，电话：020-34567890</li>
+                            <li><i class="fas fa-map-marker-alt" style="color: #ff4d4f;"></i> <strong>深圳服务站</strong> - 南山区超威电池服务站，电话：0755-11223344</li>
                         </ul>
                     </div>
                 </div>
@@ -687,75 +1242,520 @@
         </div>
     </div>
 
+    <!-- 激活表单弹窗 -->
+    <div class="modal-overlay" id="activationModal">
+        <div class="activation-modal">
+            <div class="modal-header">
+                <h2>激活电子质保卡</h2>
+                <p>请填写以下信息完成激活</p>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">产品序列号</label>
+                <input type="text" class="form-input" id="modalProductId" value="105600000001" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">购买日期 <span class="required">*</span></label>
+                <input type="date" class="form-input" id="purchaseDate" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">购买渠道 <span class="required">*</span></label>
+                <select class="form-select" id="purchaseChannel" required>
+                    <option value="">请选择购买渠道</option>
+                    <option value="store">线下门店</option>
+                    <option value="online">线上商城</option>
+                    <option value="dealer">经销商</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">联系电话 <span class="required">*</span></label>
+                <input type="tel" class="form-input" id="phoneNumber" placeholder="请输入手机号码" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">电子邮箱</label>
+                <input type="email" class="form-input" id="email" placeholder="请输入电子邮箱">
+            </div>
+            
+            <div class="form-checkbox">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">我已阅读并同意《电子质保服务协议》</label>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="hideActivationForm()">取消</button>
+                <button class="btn-submit" onclick="submitActivation()" id="submitBtn">提交激活</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 激活成功弹窗 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="activation-modal success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <div class="success-title">激活成功！</div>
+            
+            <div class="success-message">
+                您的产品质保已成功激活，现在可以享受24个月全国联保服务。
+            </div>
+            
+            <div class="success-info">
+                <div style="margin-bottom: 10px;">
+                    <strong>产品序列号：</strong> <span id="success-product-id">105600000001</span>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <strong>生效日期：</strong> <span id="success-activate-date">2024-01-15</span>
+                </div>
+                <div>
+                    <strong>到期日期：</strong> <span id="success-expire-date">2026-01-14</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">
+                <button class="btn-cancel" onclick="hideSuccessModal()" style="padding: 12px 30px;">关闭</button>
+                <button class="btn-submit" onclick="goToWarrantyCard()" style="padding: 12px 30px;">查看质保卡</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // 初始化按钮点击事件
+        // 产品数据库
+        const productDatabase = {
+            '105600000001': {
+                model: '超威电池72V20Ah石墨烯',
+                status: 'inactive',
+                warrantyPeriod: '24个月',
+                activateDate: '',
+                expireDate: '',
+                statusText: '产品质保未激活',
+                bannerColor: 'status-inactive'
+            },
+            '105600000002': {
+                model: '天能电池60V32Ah T3',
+                status: 'active',
+                warrantyPeriod: '24个月',
+                activateDate: '2023-08-20',
+                expireDate: '2025-08-19',
+                statusText: '正品保障，全国联保',
+                bannerColor: 'status-active'
+            },
+            '105600000003': {
+                model: '骆驼蓄电池12V 100Ah',
+                status: 'expired',
+                warrantyPeriod: '18个月',
+                activateDate: '2021-05-10',
+                expireDate: '2022-11-09',
+                statusText: '质保已过期，请联系客服',
+                bannerColor: 'status-expired'
+            },
+            '105600000004': {
+                model: '超威电池48V12Ah锂电',
+                status: 'active',
+                warrantyPeriod: '36个月',
+                activateDate: '2023-12-01',
+                expireDate: '2026-11-30',
+                statusText: '正品保障，全国联保',
+                bannerColor: 'status-active'
+            }
+        };
+
+        // 当前产品数据
+        let currentProduct = {
+            id: '105600000001',
+            model: '',
+            status: 'inactive',
+            warrantyPeriod: '',
+            activateDate: '',
+            expireDate: ''
+        };
+
+        // 检测是否为微信浏览器
+        function isWeixinBrowser() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+
+        // 显示微信访问提示
+        function showWeixinTip() {
+            if (isWeixinBrowser()) {
+                const weixinTip = document.getElementById('weixinTip');
+                weixinTip.style.display = 'block';
+                // 5秒后自动隐藏
+                setTimeout(() => {
+                    weixinTip.style.display = 'none';
+                }, 10000);
+            }
+        }
+
+        // 关闭微信提示
+        function closeWeixinTip() {
+            document.getElementById('weixinTip').style.display = 'none';
+        }
+
+        // 复制链接到剪贴板
+        function copyToBrowser() {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                showMessage('链接已复制！请粘贴到浏览器中访问', 'success');
+            }).catch(err => {
+                // 备用方案
+                const textArea = document.createElement('textarea');
+                textArea.value = currentUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showMessage('链接已复制！请粘贴到浏览器中访问', 'success');
+            });
+        }
+
+        // 显示微信操作指引
+        function showWeixinGuide() {
+            showMessage('微信内访问操作指引：<br>1. 点击右上角"..."<br>2. 选择"在浏览器中打开"<br>3. 建议使用手机默认浏览器访问', 'info');
+        }
+
+        // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || urlParams.get('code') || '105600000001';
+            
+            loadProduct(productId);
+            initButtonEvents();
+            showContent('warranty');
+            
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('purchaseDate').value = today;
+            document.getElementById('purchaseDate').max = today;
+            
+            // 检查是否为微信浏览器
+            setTimeout(showWeixinTip, 1000);
+        });
+
+        // 加载产品信息
+        function loadProduct(productId) {
+            const productInfo = productDatabase[productId] || productDatabase['105600000001'];
+            
+            currentProduct.id = productId;
+            currentProduct.model = productInfo.model;
+            currentProduct.status = productInfo.status;
+            currentProduct.warrantyPeriod = productInfo.warrantyPeriod;
+            currentProduct.activateDate = productInfo.activateDate;
+            currentProduct.expireDate = productInfo.expireDate;
+            
+            updateProductDisplay();
+        }
+
+        // 更新产品显示
+        function updateProductDisplay() {
+            const statusBanner = document.getElementById('statusBanner');
+            const activationNotice = document.getElementById('activationNotice');
+            const warrantyStatus = document.getElementById('warranty-status');
+            
+            document.getElementById('product-id').textContent = currentProduct.id;
+            document.getElementById('product-model').textContent = currentProduct.model;
+            document.getElementById('modalProductId').value = currentProduct.id;
+            
+            if (currentProduct.status === 'active') {
+                statusBanner.className = 'status-banner status-active';
+                document.getElementById('statusText').textContent = '产品质保已激活';
+                activationNotice.style.display = 'none';
+                
+                warrantyStatus.textContent = '在保';
+                warrantyStatus.className = 'status-badge status-valid';
+                document.getElementById('warranty-period').textContent = currentProduct.warrantyPeriod;
+                
+                document.getElementById('activateDateRow').style.display = 'flex';
+                document.getElementById('expireDateRow').style.display = 'flex';
+                document.getElementById('activate-date').textContent = currentProduct.activateDate;
+                document.getElementById('expire-date').textContent = currentProduct.expireDate;
+                
+                document.getElementById('active-product-id').textContent = currentProduct.id;
+                document.getElementById('active-warranty-period').textContent = currentProduct.warrantyPeriod;
+                document.getElementById('active-activate-date').textContent = currentProduct.activateDate;
+                document.getElementById('active-expire-date').textContent = currentProduct.expireDate;
+                
+                document.getElementById('warranty-inactive').style.display = 'none';
+                document.getElementById('warranty-active').style.display = 'block';
+                document.getElementById('download-inactive').style.display = 'none';
+                document.getElementById('download-active').style.display = 'block';
+                
+                enableAllButtons();
+                
+            } else if (currentProduct.status === 'expired') {
+                statusBanner.className = 'status-banner status-expired';
+                document.getElementById('statusText').textContent = '质保已过期';
+                activationNotice.style.display = 'none';
+                
+                warrantyStatus.textContent = '已过保';
+                warrantyStatus.className = 'status-badge status-expired-badge';
+                document.getElementById('warranty-period').textContent = currentProduct.warrantyPeriod;
+                
+                document.getElementById('activateDateRow').style.display = 'flex';
+                document.getElementById('expireDateRow').style.display = 'flex';
+                document.getElementById('activate-date').textContent = currentProduct.activateDate;
+                document.getElementById('expire-date').textContent = currentProduct.expireDate;
+                
+                document.getElementById('active-product-id').textContent = currentProduct.id;
+                document.getElementById('active-warranty-period').textContent = currentProduct.warrantyPeriod;
+                document.getElementById('active-activate-date').textContent = currentProduct.activateDate;
+                document.getElementById('active-expire-date').textContent = currentProduct.expireDate;
+                
+                document.getElementById('warranty-inactive').style.display = 'none';
+                document.getElementById('warranty-active').style.display = 'block';
+                document.getElementById('download-inactive').style.display = 'none';
+                document.getElementById('download-active').style.display = 'block';
+                
+                enableAllButtons();
+                
+            } else {
+                statusBanner.className = 'status-banner status-inactive';
+                document.getElementById('statusText').textContent = '产品质保未激活';
+                activationNotice.style.display = 'block';
+                
+                warrantyStatus.textContent = '未激活';
+                warrantyStatus.className = 'status-badge status-inactive-badge';
+                document.getElementById('warranty-period').textContent = '24个月（激活后生效）';
+                
+                document.getElementById('activateDateRow').style.display = 'none';
+                document.getElementById('expireDateRow').style.display = 'none';
+                
+                document.getElementById('warranty-inactive').style.display = 'block';
+                document.getElementById('warranty-active').style.display = 'none';
+                document.getElementById('download-inactive').style.display = 'block';
+                document.getElementById('download-active').style.display = 'none';
+                
+                disableNonWarrantyButtons();
+            }
+            
+            document.getElementById('success-product-id').textContent = currentProduct.id;
+            document.getElementById('success-activate-date').textContent = currentProduct.activateDate;
+            document.getElementById('success-expire-date').textContent = currentProduct.expireDate;
+        }
+
+        // 启用所有功能按钮
+        function enableAllButtons() {
+            const buttons = document.querySelectorAll('.horizontal-btn');
+            buttons.forEach(button => {
+                button.classList.remove('disabled');
+            });
+        }
+
+        // 禁用非质保卡功能按钮
+        function disableNonWarrantyButtons() {
+            const buttons = document.querySelectorAll('.horizontal-btn');
+            buttons.forEach(button => {
+                const contentId = button.getAttribute('data-content');
+                if (contentId !== 'warranty' && contentId !== 'company' && contentId !== 'contact') {
+                    button.classList.add('disabled');
+                }
+            });
+        }
+
+        // 初始化按钮点击事件
+        function initButtonEvents() {
             const buttons = document.querySelectorAll('.horizontal-btn');
             
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // 移除所有按钮的active类
-                    buttons.forEach(btn => btn.classList.remove('active'));
+                    if (this.classList.contains('disabled')) {
+                        if (currentProduct.status === 'inactive') {
+                            showMessage('请先激活产品质保卡以使用此功能', 'warning');
+                        }
+                        return;
+                    }
                     
-                    // 给当前点击的按钮添加active类
+                    buttons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // 获取要显示的内容标识
                     const contentId = this.getAttribute('data-content');
-                    
-                    // 显示对应的内容面板
                     showContent(contentId);
                 });
             });
-            
-            // 默认显示质保卡内容
-            showContent('warranty');
-        });
+        }
 
         // 显示指定内容面板
         function showContent(contentId) {
-            // 隐藏所有内容面板
             const contentPanels = document.querySelectorAll('.content-panel');
             contentPanels.forEach(panel => {
                 panel.classList.remove('active');
             });
             
-            // 显示指定的内容面板
             const targetPanel = document.getElementById(contentId + '-content');
             if (targetPanel) {
                 targetPanel.classList.add('active');
             }
         }
 
+        // 显示激活表单
+        function showActivationForm() {
+            document.getElementById('activationModal').classList.add('active');
+        }
+
+        // 隐藏激活表单
+        function hideActivationForm() {
+            document.getElementById('activationModal').classList.remove('active');
+        }
+
+        // 验证表单
+        function validateForm() {
+            const purchaseDate = document.getElementById('purchaseDate').value;
+            const purchaseChannel = document.getElementById('purchaseChannel').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            let isValid = true;
+            
+            document.getElementById('purchaseDate').classList.remove('error');
+            document.getElementById('purchaseChannel').classList.remove('error');
+            document.getElementById('phoneNumber').classList.remove('error');
+            
+            if (!purchaseDate) {
+                document.getElementById('purchaseDate').classList.add('error');
+                isValid = false;
+            }
+            
+            if (!purchaseChannel) {
+                document.getElementById('purchaseChannel').classList.add('error');
+                isValid = false;
+            }
+            
+            if (!phoneNumber || !/^1[3-9]\d{9}$/.test(phoneNumber)) {
+                document.getElementById('phoneNumber').classList.add('error');
+                isValid = false;
+            }
+            
+            if (!agreeTerms) {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // 提交激活表单
+        function submitActivation() {
+            if (!validateForm()) {
+                showMessage('请填写完整的激活信息', 'warning');
+                return;
+            }
+            
+            const purchaseDate = document.getElementById('purchaseDate').value;
+            const purchaseChannel = document.getElementById('purchaseChannel').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
+            
+            showMessage('正在提交激活信息...', 'info');
+            
+            setTimeout(() => {
+                currentProduct.status = 'active';
+                
+                const purchaseDateObj = new Date(purchaseDate);
+                const activateDate = new Date();
+                const expireDate = new Date(purchaseDateObj);
+                expireDate.setMonth(expireDate.getMonth() + 24);
+                
+                currentProduct.activateDate = activateDate.toISOString().split('T')[0];
+                currentProduct.expireDate = expireDate.toISOString().split('T')[0];
+                
+                productDatabase[currentProduct.id] = {
+                    model: currentProduct.model,
+                    status: 'active',
+                    warrantyPeriod: '24个月',
+                    activateDate: currentProduct.activateDate,
+                    expireDate: currentProduct.expireDate,
+                    statusText: '正品保障，全国联保',
+                    bannerColor: 'status-active'
+                };
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提交激活';
+                
+                hideActivationForm();
+                showSuccessModal();
+                updateProductDisplay();
+                
+            }, 2000);
+        }
+
+        // 显示成功弹窗
+        function showSuccessModal() {
+            document.getElementById('success-product-id').textContent = currentProduct.id;
+            document.getElementById('success-activate-date').textContent = currentProduct.activateDate;
+            document.getElementById('success-expire-date').textContent = currentProduct.expireDate;
+            
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        // 隐藏成功弹窗
+        function hideSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
+        // 跳转到质保卡页面
+        function goToWarrantyCard() {
+            hideSuccessModal();
+            
+            const buttons = document.querySelectorAll('.horizontal-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.horizontal-btn[data-content="warranty"]').classList.add('active');
+            showContent('warranty');
+            
+            showMessage('激活成功！质保卡已更新', 'success');
+        }
+
         // 下载功能
         function downloadPDF() {
+            if (currentProduct.status === 'inactive') {
+                showMessage('请先激活产品质保卡', 'warning');
+                return;
+            }
+            
             showMessage('正在生成PDF电子质保卡，请稍候...', 'info');
             setTimeout(() => {
-                showMessage('PDF下载完成！', 'success');
+                showMessage('PDF下载完成！文件名：质保卡_' + currentProduct.id + '.pdf', 'success');
             }, 1500);
         }
         
         function downloadImage() {
+            if (currentProduct.status === 'inactive') {
+                showMessage('请先激活产品质保卡', 'warning');
+                return;
+            }
+            
             showMessage('正在生成图片电子凭证，请稍候...', 'info');
             setTimeout(() => {
-                showMessage('图片下载完成！', 'success');
+                showMessage('图片下载完成！文件名：凭证_' + currentProduct.id + '.jpg', 'success');
             }, 1500);
+        }
+
+        // 客服功能
+        function callCustomerService() {
+            showMessage('正在拨打客服热线：400-800-9000', 'info');
+        }
+        
+        function onlineConsultation() {
+            showMessage('正在连接到在线客服，请稍候...', 'info');
         }
 
         // 显示消息提示
         function showMessage(message, type) {
-            // 移除现有的提示
             const existingAlert = document.querySelector('.custom-alert');
             if (existingAlert) {
                 existingAlert.remove();
             }
             
-            // 创建提示元素
             const alertDiv = document.createElement('div');
             alertDiv.className = 'custom-alert';
-            alertDiv.textContent = message;
+            alertDiv.innerHTML = message;
             
-            // 设置样式
             alertDiv.style.position = 'fixed';
             alertDiv.style.top = '20px';
             alertDiv.style.left = '50%';
@@ -765,27 +1765,27 @@
             alertDiv.style.zIndex = '9999';
             alertDiv.style.fontWeight = '500';
             alertDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-            alertDiv.style.maxWidth = '80%';
+            alertDiv.style.maxWidth = '90%';
             alertDiv.style.textAlign = 'center';
             alertDiv.style.fontSize = '14px';
             alertDiv.style.transition = 'all 0.3s ease';
             
-            // 根据类型设置颜色
             if (type === 'success') {
                 alertDiv.style.backgroundColor = '#52c41a';
                 alertDiv.style.color = 'white';
             } else if (type === 'warning') {
                 alertDiv.style.backgroundColor = '#fa8c16';
                 alertDiv.style.color = 'white';
+            } else if (type === 'error') {
+                alertDiv.style.backgroundColor = '#ff4d4f';
+                alertDiv.style.color = 'white';
             } else {
                 alertDiv.style.backgroundColor = '#1890ff';
                 alertDiv.style.color = 'white';
             }
             
-            // 添加到页面
             document.body.appendChild(alertDiv);
             
-            // 3秒后自动消失
             setTimeout(() => {
                 if (alertDiv.parentNode) {
                     alertDiv.style.opacity = '0';
@@ -796,28 +1796,8 @@
                         }
                     }, 300);
                 }
-            }, 3000);
+            }, 5000);
         }
-
-        // 添加一些CSS到页面用于消息提示
-        const style = document.createElement('style');
-        style.textContent = `
-            .custom-alert {
-                animation: slideIn 0.3s ease;
-            }
-            
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateX(-50%) translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(-50%) translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
