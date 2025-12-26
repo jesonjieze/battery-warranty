@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>杰泽电池电子质保卡</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            padding: 0;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        /* 头部标题区域 - 参考图片中的蓝绿渐变 */
+        .header {
+            background: linear-gradient(135deg, #1a5fff 0%, #36cfc9 100%);
+            color: white;
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .logo i {
+            color: #1a5fff;
+            font-size: 22px;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 13px;
+        }
+
+        /* 状态横幅 - 红色背景 */
+        .status-banner {
+            background: linear-gradient(to right, #ff4d4f, #ff7875);
+            color: white;
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status-banner i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        /* 产品信息卡片 - 与图片一致 */
+        .info-card {
+            padding: 20px 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a5fff;
+        }
+
+        .card-title i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .info-value {
+            font-weight: 500;
+            font-size: 15px;
+            text-align: right;
+            max-width: 65%;
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-valid {
+            background-color: #f6ffed;
+            color: #52c41a;
+            border: 1px solid #b7eb8f;
+        }
+
+        /* 功能按钮区域 - 恢复合适大小 */
+        .horizontal-buttons {
+            padding: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            background-color: #fafafa;
+            justify-content: space-between;
+        }
+
+        .horizontal-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: calc(33.333% - 8px);
+            height: 90px;
+            padding: 12px 8px;
+            background-color: white;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .horizontal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .horizontal-btn.active {
+            background: linear-gradient(135deg, #1a5fff 0%, #1890ff 100%);
+            border-color: #1a5fff;
+            color: white;
+            box-shadow: 0 4px 12px rgba(26, 95, 255, 0.2);
+        }
+
+        .horizontal-btn.active .btn-icon-horizontal {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .horizontal-btn.active .btn-text-horizontal {
+            color: white;
+        }
+
+        .horizontal-btn.active .btn-desc-horizontal {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .btn-icon-horizontal {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: white;
+            background-color: #1a5fff;
+            border: 1px solid rgba(26, 95, 255, 0.1);
+        }
+
+        .btn-text-horizontal {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+            color: #333;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .btn-desc-horizontal {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* 内容显示区域 */
+        .content-area {
+            padding: 20px 16px;
+            min-height: 320px;
+            transition: all 0.3s ease;
+        }
+
+        .content-panel {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        .content-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a5fff;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-title i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .content-body {
+            line-height: 1.6;
+            color: #333;
+            font-size: 15px;
+        }
+
+        /* 下载凭证区域 - 与图片一致 */
+        .download-section {
+            margin-top: 24px;
+        }
+
+        .download-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #1a5fff;
+        }
+
+        .download-item.pdf {
+            border-left-color: #1a5fff;
+        }
+
+        .download-item.image {
+            border-left-color: #52c41a;
+        }
+
+        .download-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .download-icon.pdf {
+            background: linear-gradient(135deg, #1a5fff, #1890ff);
+        }
+
+        .download-icon.image {
+            background: linear-gradient(135deg, #52c41a, #73d13d);
+        }
+
+        .download-info {
+            flex: 1;
+        }
+
+        .download-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .download-desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .download-btn {
+            padding: 10px 20px;
+            background-color: #1a5fff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #1890ff;
+        }
+
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 20px 16px;
+            color: #999;
+            font-size: 12px;
+            border-top: 1px solid #f0f0f0;
+            background-color: #fafafa;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .horizontal-btn {
+                width: calc(33.333% - 8px);
+                height: 88px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .horizontal-btn {
+                width: calc(33.333% - 6px);
+                height: 86px;
+            }
+            
+            .header {
+                padding: 18px 14px;
+            }
+            
+            .info-card {
+                padding: 18px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部标题区域 -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo">
+                    <i class="fas fa-battery-full"></i>
+                </div>
+                <div class="brand-name">超威电池</div>
+            </div>
+            <h1>电子质保卡</h1>
+            <p>一物一码 · 正品保障</p>
+        </div>
+
+        <!-- 状态横幅 -->
+        <div class="status-banner">
+            <i class="fas fa-shield-alt"></i>
+            <span id="status-text">正品保障，全国联保</span>
+        </div>
+
+        <!-- 产品信息卡片 -->
+        <div class="info-card">
+            <div class="card-title">
+                <i class="fas fa-info-circle"></i>
+                <span>产品信息</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">产品序列号：</span>
+                <span class="info-value" id="product-id">105600000001</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">产品型号：</span>
+                <span class="info-value" id="product-model">超威电池72V20Ah石墨烯</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">质保状态：</span>
+                <span class="info-value">
+                    <span class="status-badge status-valid" id="warranty-status">在保</span>
+                </span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">质保期限：</span>
+                <span class="info-value" id="warranty-period">24个月</span>
+            </div>
+        </div>
+
+        <!-- 功能按钮区域 -->
+        <div class="horizontal-buttons">
+            <div class="horizontal-btn active" data-content="warranty">
+                <div class="btn-icon-horizontal">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <div class="btn-text-horizontal">质保卡</div>
+                <div class="btn-desc-horizontal">电子质保卡</div>
+            </div>
+            
+            <div class="horizontal-btn" data-content="download">
+                <div class="btn-icon-horizontal">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="btn-text-horizontal">下载</div>
+                <div class="btn-desc-horizontal">电子凭证</div>
+            </div>
+            
+            <div class="horizontal-btn" data-content="company">
+                <div class="btn-icon-horizontal">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="btn-text-horizontal">公司简介</div>
+                <div class="btn-desc-horizontal">品牌实力</div>
+            </div>
+            
+            <div class="horizontal-btn" data-content="products">
+                <div class="btn-icon-horizontal">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <div class="btn-text-horizontal">产品展示</div>
+                <div class="btn-desc-horizontal">全系产品</div>
+            </div>
+            
+            <div class="horizontal-btn" data-content="contact">
+                <div class="btn-icon-horizontal">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="btn-text-horizontal">联系客服</div>
+                <div class="btn-desc-horizontal">在线服务</div>
+            </div>
+            
+            <div class="horizontal-btn" data-content="service">
+                <div class="btn-icon-horizontal">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="btn-text-horizontal">服务网点</div>
+                <div class="btn-desc-horizontal">全国联保</div>
+            </div>
+        </div>
+
+        <!-- 内容显示区域 -->
+        <div class="content-area">
+            <!-- 质保卡内容 -->
+            <div class="content-panel active" id="warranty-content">
+                <div class="content-title">
+                    <i class="fas fa-file-contract"></i>
+                    电子质保卡
+                </div>
+                <div class="content-body">
+                    <p>感谢您购买超威电池产品！本电子质保卡是您享受售后服务的凭证，请妥善保管。</p>
+                    
+                    <div class="info-card" style="margin-top: 16px; padding: 16px; border: 1px solid #e8e8e8; border-radius: 12px;">
+                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
+                            <span class="info-label">产品序列号：</span>
+                            <span class="info-value">105600000001</span>
+                        </div>
+                        
+                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
+                            <span class="info-label">产品型号：</span>
+                            <span class="info-value">超威电池72V20Ah石墨烯</span>
+                        </div>
+                        
+                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
+                            <span class="info-label">质保状态：</span>
+                            <span class="info-value">
+                                <span class="status-badge status-valid">在保</span>
+                            </span>
+                        </div>
+                        
+                        <div class="info-row" style="border-bottom: none; padding: 10px 0;">
+                            <span class="info-label">质保期限：</span>
+                            <span class="info-value">24个月</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 下载内容 - 与图片完全一致 -->
+            <div class="content-panel" id="download-content">
+                <div class="content-title">
+                    <i class="fas fa-download"></i>
+                    下载电子凭证
+                </div>
+                <div class="content-body">
+                    <p>您可以通过以下方式下载电子质保凭证：</p>
+                    
+                    <div class="download-options">
+                        <!-- PDF格式下载 -->
+                        <div class="download-item pdf">
+                            <div class="download-icon pdf">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="download-info">
+                                <div class="download-title">PDF格式电子质保卡</div>
+                                <div class="download-desc">适合打印保存，包含完整产品信息和质保条款</div>
+                            </div>
+                            <button class="download-btn" onclick="downloadPDF()">下载</button>
+                        </div>
+                        
+                        <!-- 图片格式下载 -->
+                        <div class="download-item image">
+                            <div class="download-icon image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="download-info">
+                                <div class="download-title">图片格式电子凭证</div>
+                                <div class="download-desc">适合手机保存，方便随时查看</div>
+                            </div>
+                            <button class="download-btn" onclick="downloadImage()">下载</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 下载说明 -->
+                    <div class="download-section">
+                        <div class="content-title" style="font-size: 16px; margin-bottom: 12px;">
+                            <i class="fas fa-info-circle"></i>
+                            下载说明
+                        </div>
+                        <div class="content-body">
+                            <p>• 下载的文件包含数字签名，确保真实性</p>
+                            <p>• 建议将电子凭证保存在云端或打印备份</p>
+                            <p>• 如需帮助，请联系客服 400-800-9000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 公司简介内容 -->
+            <div class="content-panel" id="company-content">
+                <div class="content-title">
+                    <i class="fas fa-building"></i>
+                    公司简介
+                </div>
+                <div class="content-body">
+                    <p>超威电池有限公司成立于1998年，是中国领先的电池制造商之一。我们专注于研发和生产高品质的铅酸电池、锂电池和储能系统，产品广泛应用于电动汽车、电动自行车、太阳能储能等领域。</p>
+                    
+                    <h3 style="margin: 18px 0 12px; color: #333; font-size: 16px;">我们的优势</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
+                            <i class="fas fa-award" style="color: #1a5fff; margin-right: 10px;"></i>
+                            <span>超过20年行业经验，技术领先</span>
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
+                            <i class="fas fa-industry" style="color: #1a5fff; margin-right: 10px;"></i>
+                            <span>年产能超过1亿只电池</span>
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
+                            <i class="fas fa-globe" style="color: #1a5fff; margin-right: 10px;"></i>
+                            <span>产品出口全球50多个国家和地区</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 产品展示内容 -->
+            <div class="content-panel" id="products-content">
+                <div class="content-title">
+                    <i class="fas fa-box-open"></i>
+                    产品展示
+                </div>
+                <div class="content-body">
+                    <p>超威电池提供全系列电池产品，满足不同应用场景需求：</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px;">
+                        <div style="border: 1px solid #e8e8e8; border-radius: 10px; padding: 14px; text-align: center;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1a5fff, #1890ff); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div style="font-weight: bold; margin-bottom: 4px;">电动汽车电池</div>
+                            <div style="font-size: 12px; color: #666;">高能量密度，长续航</div>
+                        </div>
+                        
+                        <div style="border: 1px solid #e8e8e8; border-radius: 10px; padding: 14px; text-align: center;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1a5fff, #1890ff); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 22px;">
+                                <i class="fas fa-bicycle"></i>
+                            </div>
+                            <div style="font-weight: bold; margin-bottom: 4px;">电动自行车电池</div>
+                            <div style="font-size: 12px; color: #666;">轻量化设计，动力强劲</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 联系客服内容 -->
+            <div class="content-panel" id="contact-content">
+                <div class="content-title">
+                    <i class="fas fa-headset"></i>
+                    联系客服
+                </div>
+                <div class="content-body">
+                    <div style="text-align: center; padding: 20px 0;">
+                        <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #f5222d, #ff4d4f); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 32px;">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 style="color: #333; margin-bottom: 8px;">客服热线</h3>
+                        <div style="font-size: 24px; font-weight: bold; color: #f5222d; margin: 16px 0;">400-800-9000</div>
+                        <div style="color: #666; font-size: 14px;">服务时间：周一至周日 8:00-20:00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 服务网点内容 -->
+            <div class="content-panel" id="service-content">
+                <div class="content-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    服务网点
+                </div>
+                <div class="content-body">
+                    <p>超威电池在全国拥有5000+服务网点，为您提供便捷的售后服务：</p>
+                    
+                    <div style="margin-top: 16px;">
+                        <div style="font-weight: bold; color: #333; margin-bottom: 10px;">主要城市服务网点</div>
+                        <ul style="list-style-type: none; padding: 0;">
+                            <li style="padding: 10px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
+                                <i class="fas fa-map-marker-alt" style="color: #1a5fff; margin-right: 10px;"></i>
+                                <span><strong>北京</strong> - 朝阳区超威电池服务中心</span>
+                            </li>
+                            <li style="padding: 10px 0; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center;">
+                                <i class="fas fa-map-marker-alt" style="color: #1a5fff; margin-right: 10px;"></i>
+                                <span><strong>上海</strong> - 浦东新区超威电池旗舰店</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer">
+            <p>© 2023 超威电池有限公司 版权所有</p>
+            <p>客服热线：400-800-9000 | 官方网站：www.chaowei.com</p>
+        </div>
+    </div>
+
+    <script>
+        // 初始化按钮点击事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.horizontal-btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // 给当前点击的按钮添加active类
+                    this.classList.add('active');
+                    
+                    // 获取要显示的内容标识
+                    const contentId = this.getAttribute('data-content');
+                    
+                    // 显示对应的内容面板
+                    showContent(contentId);
+                });
+            });
+            
+            // 默认显示质保卡内容
+            showContent('warranty');
+        });
+
+        // 显示指定内容面板
+        function showContent(contentId) {
+            // 隐藏所有内容面板
+            const contentPanels = document.querySelectorAll('.content-panel');
+            contentPanels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // 显示指定的内容面板
+            const targetPanel = document.getElementById(contentId + '-content');
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        }
+
+        // 下载功能
+        function downloadPDF() {
+            showMessage('正在生成PDF电子质保卡，请稍候...', 'info');
+            setTimeout(() => {
+                showMessage('PDF下载完成！', 'success');
+            }, 1500);
+        }
+        
+        function downloadImage() {
+            showMessage('正在生成图片电子凭证，请稍候...', 'info');
+            setTimeout(() => {
+                showMessage('图片下载完成！', 'success');
+            }, 1500);
+        }
+
+        // 显示消息提示
+        function showMessage(message, type) {
+            // 移除现有的提示
+            const existingAlert = document.querySelector('.custom-alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            // 创建提示元素
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'custom-alert';
+            alertDiv.textContent = message;
+            
+            // 设置样式
+            alertDiv.style.position = 'fixed';
+            alertDiv.style.top = '20px';
+            alertDiv.style.left = '50%';
+            alertDiv.style.transform = 'translateX(-50%)';
+            alertDiv.style.padding = '12px 20px';
+            alertDiv.style.borderRadius = '8px';
+            alertDiv.style.zIndex = '9999';
+            alertDiv.style.fontWeight = '500';
+            alertDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            alertDiv.style.maxWidth = '80%';
+            alertDiv.style.textAlign = 'center';
+            alertDiv.style.fontSize = '14px';
+            alertDiv.style.transition = 'all 0.3s ease';
+            
+            // 根据类型设置颜色
+            if (type === 'success') {
+                alertDiv.style.backgroundColor = '#52c41a';
+                alertDiv.style.color = 'white';
+            } else if (type === 'warning') {
+                alertDiv.style.backgroundColor = '#fa8c16';
+                alertDiv.style.color = 'white';
+            } else {
+                alertDiv.style.backgroundColor = '#1890ff';
+                alertDiv.style.color = 'white';
+            }
+            
+            // 添加到页面
+            document.body.appendChild(alertDiv);
+            
+            // 3秒后自动消失
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.style.opacity = '0';
+                    alertDiv.style.transform = 'translateX(-50%) translateY(-20px)';
+                    setTimeout(() => {
+                        if (alertDiv.parentNode) {
+                            alertDiv.remove();
+                        }
+                    }, 300);
+                }
+            }, 3000);
+        }
+
+        // 添加一些CSS到页面用于消息提示
+        const style = document.createElement('style');
+        style.textContent = `
+            .custom-alert {
+                animation: slideIn 0.3s ease;
+            }
+            
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
